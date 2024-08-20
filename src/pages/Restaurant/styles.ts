@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors } from 'styles';
+import { breakpoints, colors } from 'styles';
 
 interface ImageProps {
     imageSrc: string;
@@ -17,6 +17,7 @@ const heroStyle = `
 export const Restaurant = styled.div`
     position: relative;
     padding-top: 280px;
+    color: ${colors.white};
 
     .overlay:after {
         background-color: ${colors.black};
@@ -39,20 +40,15 @@ export const Hero = styled.section<ImageProps>`
     padding: 32px 40px;
     ${heroStyle}
 
-    ul, h1 {
+    span, h1 {
         z-index: 1;
         font-size: 32px;
     }
-    h1 {
-        font-weight: 900;
-    }
-    ul li {
+    span {
         font-weight: 100;        
     }
-    ul {
-        display: flex;
-        gap: 32px;
-        flex-wrap: wrap;
+    h1 {
+        font-weight: 900;
     }
 `;
 
@@ -61,4 +57,11 @@ export const Dishes = styled.section`
     grid-template-columns: 1fr 1fr 1fr;
     gap: 32px;
     margin: 56px 0 112px;
+    
+    @media(max-width: ${breakpoints.tablet}) {
+        grid-template-columns: 1fr 1fr;
+    }
+    @media(max-width: ${breakpoints.mobile}) {
+        grid-template-columns: 1fr;
+    }
 `;

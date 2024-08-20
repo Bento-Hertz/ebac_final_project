@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { IRestaurant } from '../../interfaces/IRestaurant';
 import Dish from './Dish';
 import * as S from './styles';
