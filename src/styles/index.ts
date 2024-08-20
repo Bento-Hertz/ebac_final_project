@@ -33,6 +33,10 @@ export const GlobalStyle = createGlobalStyle`
         overflow-x: hidden;
     }
 
+    a {
+        color: inherit;
+    }
+
     p, span {
         font-weight: 400;
     }
