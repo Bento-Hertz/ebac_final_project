@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors } from '../../styles';
+import { breakpoints, colors } from '../../styles';
 
 export const HomeHeader = styled.header`
     padding: 64px 0;
@@ -28,8 +28,31 @@ export const Header = styled.header`
         font-size: 18px;
         
     }
+
+    @media(max-width: ${breakpoints.tablet}) {
+        justify-content: center;
+        grid-template-columns: auto;
+
+        a, button {
+            display:none;
+        }
+    }
 `
 
 export const CartButton = styled.button`
     justify-self: end;
+`
+
+export const MenuMobile = styled.nav`
+    display: none;
+
+    @media(max-width: ${breakpoints.tablet}) {
+        background-color: ${colors.lightBeige};
+        color: ${colors.pink};
+        width: 100%;
+        padding: 24px 40px;
+        display: grid;
+        justify-content: start;
+        gap: 24px;
+    }
 `
