@@ -22,12 +22,11 @@ export const Restaurant = styled.div`
     .overlay:after {
         background-color: ${colors.black};
         opacity: 0.4;
-        max-width: 100vw !important;
+        max-width: 100vw;
         margin: 0;
         ${heroStyle}
         display: block;
         content: '';
-    
     }
 `;
 
@@ -40,12 +39,24 @@ export const Hero = styled.section<ImageProps>`
     padding: 32px 40px;
     ${heroStyle}
 
-    span, h1 {
+    .overlay:after {
+        background-color: ${colors.black};
+        opacity: 0.4;
+        max-width: 100vw;
+        margin: 0;
+        ${heroStyle}
+        display: block;
+        content: '';
+    }
+
+    li, h1 {
+        position: relative;
         z-index: 1;
         font-size: 32px;
     }
-    span {
-        font-weight: 100;        
+    li {
+        font-weight: 100;
+        text-transform: capitalize; 
     }
     h1 {
         font-weight: 900;
