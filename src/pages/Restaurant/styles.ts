@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { breakpoints, colors } from 'styles';
 
 interface ImageProps {
-    imageSrc: string;
+    src: string;
 }
 
 const heroStyle = `
@@ -31,7 +31,7 @@ export const Restaurant = styled.div`
 `;
 
 export const Hero = styled.section<ImageProps>`
-    background-image: url('${((props) => props.imageSrc)}');
+    background-image: url('${((props) => props.src)}');
     background-size: cover;
     background-position: center;
     display: grid;
@@ -39,24 +39,13 @@ export const Hero = styled.section<ImageProps>`
     padding: 32px 40px;
     ${heroStyle}
 
-    .overlay:after {
-        background-color: ${colors.black};
-        opacity: 0.4;
-        max-width: 100vw;
-        margin: 0;
-        ${heroStyle}
-        display: block;
-        content: '';
-    }
-
-    li, h1 {
-        position: relative;
+    span, h1 {
         z-index: 1;
         font-size: 32px;
     }
-    li {
+    span {
         font-weight: 100;
-        text-transform: capitalize; 
+        text-transform: capitalize;
     }
     h1 {
         font-weight: 900;
