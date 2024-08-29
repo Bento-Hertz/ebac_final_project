@@ -1,10 +1,12 @@
 import { IDish } from './IDish';
 
 export interface IRestaurant {
-    name: string;
-    rate: string;
-    description: string;
-    bgImage: string;
-    about: string[];
-    dishes: IDish[];
+    id: number;
+    titulo: string;
+    destacado: true;
+    tipo: string;
+    avaliacao: number;
+    descricao: string;
+    capa: string;
+    cardapio: IDish[];
 }

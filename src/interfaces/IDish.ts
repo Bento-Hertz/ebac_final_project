@@ -1,8 +1,8 @@
 export interface IDish {
-    name: string;
-    introduction: string;
-    description: string;
-    serves: string;
-    price: string;
-    image: string;
+    id: number;
+    nome: string;
+    foto: string;
+    preco: number;
+    descricao: string;
+    porcao: string;
 }
