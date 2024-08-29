@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 import { colors } from 'styles';
 
-interface ImageProps {
-    src: string;
-}
-
 export const Dish = styled.article`
     display: grid;
     gap: 8px;
@@ -13,11 +9,13 @@ export const Dish = styled.article`
     color: ${colors.lightBeige};
 `;
 
-export const Image = styled.div<ImageProps>`
-    padding-top: 60%;
-    background-image: url('${((props) => props.src)}');
-    background-size: cover;
-    background-position: center;
+export const Preview = styled.div`
+    height: 167px;
+
+    img {
+        object-fit: cover;
+        height: 100%;
+    }
 `;
 
 export const Title = styled.h3`
