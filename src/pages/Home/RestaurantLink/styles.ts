@@ -1,40 +1,36 @@
 import styled from 'styled-components';
 import { colors } from '../../../styles';
 
-interface imageProps {
-    src: string;
-}
-
 export const Restaurant = styled.article`
     color: ${colors.pink};
     background-color: ${colors.white};
+    display: grid;
+    grid-template-rows: auto 1fr;
 `;
 
-export const Image = styled.div<imageProps>`
-    padding-top: 50%;
-    background-image: url(${((props) => props.src)});
-    background-size: cover;
-    background-position: center;
+export const Image = styled.div`
+    height: 218px;
     position: relative;
 
-    ul {
+    img {
+        object-fit: cover;
+        height: 100%;
+    }
+
+    span {
         position: absolute;
-        display: flex;
-        gap: 8px;
         top: 16px;
         right: 16px;
         color: ${colors.lightBeige};
-
-        li {
-            background-color: ${colors.pink};
-            padding: 6px 4px;
-        }
+        background-color: ${colors.pink};
+        padding: 6px 4px;
     }
 `;
 
 export const Container = styled.div`
     padding: 8px;
     display: grid;
+    align-content: space-between;
     gap: 16px;
     border: 1px solid ${colors.pink};
     border-top: none;
@@ -66,5 +62,3 @@ export const Rate = styled.div`
         width: 21px;
     }
 `;
-
-export const P = styled.p``;
