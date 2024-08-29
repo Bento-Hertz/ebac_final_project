@@ -8,31 +8,28 @@ interface Props {
 }
 
 function RestaurantLink(props: Props) {
-    const { name, rate, description, bgImage, about } = props.restaurant;
+    const { tipo, capa, titulo, avaliacao, descricao, id } = props.restaurant;
 
     return (
         <S.Restaurant>
-            <Link to='/restaurant'>
-                <S.Image src={bgImage}>
-                    <ul>
-                        {about.map((item, index) => (
-                            <li key={index}>{item}</li>
-                        ))}
-                    </ul>
+            <Link to={`/restaurantes/${id}`}>
+                <S.Image>
+                        <img src={capa} alt="" />
+                        <span>{tipo}</span>
                 </S.Image>
             </Link>
             <S.Container>
                 <S.SubContainer>
-                    <h2>{name}</h2>
+                    <h2>{titulo}</h2>
                     <S.Rate>
-                        <span>{rate}</span>
+                        <span>{avaliacao}</span>
                         <div>
-                            <img src={starIcon} />
+                            <img src={starIcon} alt=""/>
                         </div>
                     </S.Rate>
                 </S.SubContainer>
-                <S.P>{description}</S.P>
-                <Link to='/restaurant'>Saiba mais</Link>
+                <p>{descricao}</p>
+                <Link to={`/restaurantes/${id}`}>Saiba mais</Link>
             </S.Container>
         </S.Restaurant>
     );
