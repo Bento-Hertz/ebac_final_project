@@ -3,17 +3,21 @@ import * as S from './styles';
 
 interface Props {
     dish: IDish; 
+    openModal: (value: number) => void;
 }
 
 function Dish(props: Props) {
-    const { name, introduction, image } = props.dish;
+    const { foto, nome, descricao, id } = props.dish;
+    const { openModal } = props;
 
     return (
         <S.Dish>
-            <S.Image src={image} />
-            <S.Title>{name}</S.Title>
-            <S.Introduction>{introduction}</S.Introduction>
-            <S.MoreDetails type='button'>Mais detalhes</S.MoreDetails>
+            <S.Preview>
+                <img src={foto} alt="" />
+            </S.Preview>
+            <S.Title>{nome}</S.Title>
+            <S.Introduction>{descricao}</S.Introduction>
+            <S.MoreDetails type='button' onClick={() => openModal(id)}>Mais detalhes</S.MoreDetails>
         </S.Dish>
     );
 }
