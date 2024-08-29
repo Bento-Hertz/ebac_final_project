@@ -7,7 +7,7 @@ function Router() {
         <Routes>
             <Route path='/' element={<Home />}/>
             <Route path='*' element={<Navigate to='/'/>}/>
-            <Route path='/restaurant' element={<Restaurant />}/>
+            <Route path='/restaurantes/:id' element={<Restaurant />}/>
         </Routes>
     );
 }
