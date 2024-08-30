@@ -7,7 +7,9 @@ export const colors = {
     pink: '#E66767',
     gray: '#4B4B4B',
     black: '#000000',
-    transparentBlack: '#00000099'
+    transparentBlack: '#00000099',
+    green: '#13ae13',
+    red: '#b41515'
 }
 
 export const breakpoints = {
@@ -53,9 +55,18 @@ export const GlobalStyle = createGlobalStyle`
         color: inherit;
     }
 
+    button:disabled {
+        cursor: default;
+    }
+
     .container {
         padding-left: 40px;
         padding-right: 40px;
+
+        @media(max-width: ${breakpoints.mobile}) {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
     }
 
     .container>* {
