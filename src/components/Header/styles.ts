@@ -50,7 +50,7 @@ export const MenuMobile = styled.nav`
         background-color: ${colors.lightBeige};
         color: ${colors.pink};
         width: 100%;
-        padding: 24px 40px;
+        padding: 24px 0;
         display: grid;
         justify-content: start;
         gap: 24px;
