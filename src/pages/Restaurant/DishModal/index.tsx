@@ -1,6 +1,10 @@
 import { IDish } from 'interfaces/IDish';
 import * as S from './styles';
 import closeIcon from 'assets/icons/close.svg';
+import { useDispatch } from 'react-redux';
+import { addToCart } from 'store/reducers/cart';
+import { updateStatusMessage } from 'store/reducers/statusMessage';
+import { useState } from 'react';
 
 interface Props {
     dish: IDish;
@@ -8,8 +12,23 @@ interface Props {
 }
 
 function DishModal(props: Props) {
+    const [isBtnDisabled, setIsBtnDisabled] = useState(false);
+
     const { foto, nome, descricao, porcao, preco } = props.dish;
     const { closeModal } = props;
+
+    const dispatch = useDispatch();
+
+    function onClickingAddToCartBtn() {
+        setIsBtnDisabled(true);
+        dispatch(addToCart(props.dish));
+        dispatch(updateStatusMessage({type: 'success', message: 'Item added to your cart', isActive: true}));
+
+        //simulating time response
+        setTimeout(() => {
+            setIsBtnDisabled(false);
+        }, 2000);
+    }
 
     return (
         <>
@@ -22,7 +41,7 @@ function DishModal(props: Props) {
                     <h3>{nome}</h3>
                     <p>{descricao}</p>
                     <span>Serve: {porcao}</span>
-                    <S.AddToCart>Adicionar ao carrinho - R${preco}</S.AddToCart>
+                    <S.AddToCart onClick={onClickingAddToCartBtn}  disabled={isBtnDisabled}>Adicionar ao carrinho - R${preco}</S.AddToCart>
                 </S.Container>
                 <S.CloseButton onClick={closeModal}>
                     <img src={closeIcon} alt="close" />
