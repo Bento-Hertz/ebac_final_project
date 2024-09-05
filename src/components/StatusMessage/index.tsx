@@ -26,8 +26,8 @@ function StatusMessage() {
 
     return (
         <S.StatusMessage
-            type={statusMessage.type}
-            isActive={statusMessage.isActive}
+            $type={statusMessage.type}
+            $isActive={statusMessage.isActive}
             ref={errRef} 
             aria-live='assertive'
         >
