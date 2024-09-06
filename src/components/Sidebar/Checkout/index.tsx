@@ -88,7 +88,12 @@ function Checkout() {
         const searchCep = async () => {
             try {
                 const data = await fetch(`http://viacep.com.br/ws/${cep}/json/`).then(res => res.json());
-                
+
+                if(data.erro) {
+                    setValidCep(false);
+                    return;
+                }
+
                 if(data.logradouro && data.bairro)
                     setAddress(data.logradouro + ', ' + data.bairro);
                 if(data.localidade)
