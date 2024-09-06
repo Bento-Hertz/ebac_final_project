@@ -2,14 +2,20 @@ import { Link, useLocation } from 'react-router-dom';
 import Logo from '../Logo';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleCart } from 'store/reducers/cartToggle';
+import { toggleSidebar } from 'store/reducers/sidebarToggle';
 import { RootReducer } from 'store';
+import { changeCurrentSidebarSection } from 'store/reducers/currentSidebarSection';
 
 function Header() {
     const path = useLocation().pathname;
     const dispatch = useDispatch();
 
-    const numberOfCartItems = useSelector((state: RootReducer) => state.cart.items.length);
+    const numberOfCartItems = useSelector((state: RootReducer) => state.cart.quantity);
+
+    const onClickingCartButton = () => {
+        dispatch(changeCurrentSidebarSection('cart'));
+        dispatch(toggleSidebar(true));
+    }
 
     return (
         <>
@@ -23,7 +29,7 @@ function Header() {
                     <S.Header>
                         <Link to='/'>Restaurantes</Link>
                         <Logo />
-                        <S.CartButton onClick={() => dispatch(toggleCart(true))}>{numberOfCartItems} produto(s) no carrinho</S.CartButton>
+                        <S.CartButton onClick={onClickingCartButton}>{numberOfCartItems} produto(s) no carrinho</S.CartButton>
                     </S.Header>
                 }
             </div>
@@ -32,7 +38,7 @@ function Header() {
                 <div className='container'>
                     <S.MenuMobile>
                         <Link to='/'>Restaurantes</Link>
-                        <S.CartButton onClick={() => dispatch(toggleCart(true))}>{numberOfCartItems} produto(s) no carrinho</S.CartButton>
+                        <S.CartButton onClick={onClickingCartButton}>{numberOfCartItems} produto(s) no carrinho</S.CartButton>
                     </S.MenuMobile>
                 </div>
             :
