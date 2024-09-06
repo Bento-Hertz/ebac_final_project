@@ -10,8 +10,9 @@ import { updateStatusMessage } from 'store/reducers/statusMessage';
 import { toggleSidebar } from 'store/reducers/sidebarToggle';
 import { cleanCart } from 'store/reducers/cart';
 
+//Pra adicionar uma verificação mais rigorosa e realista aos campos de nome e número de cartão é só trocar os REGEX abaixo pelos que estão comentados (:
 const NAMEINCARD_REGEX = /^[A-Za-z\s]{3,}$/;
-// const NAMEINCARD_REGEX = /^[A-Z]{1}[a-z]{2,}[\s]{1}[A-Z]{1}[a-zA-Z\s]{2,}$/;
+// const NAMEINCARD_REGEX = /^[A-Z]{1}[a-z]{1,}[\s]{1}[A-Z]{1}[a-z]{1,}([\s]{1}[A-Z]{1}[a-z]{1,})*$/
 const CARDNUMBER_REGEX = /^[0-9]{16}$/;
 // const CARDNUMBER_REGEX = /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
 const CVV_REGEX = /^[0-9]{3}$/;
@@ -40,6 +41,7 @@ const eraseInsertedMaskValues = (inputValue: string): string => {
 
 function Checkout() {
 
+    //resolvi não usar o formik e o yup por preferências pessoais
     const dispatch = useDispatch();
     const cart = useSelector((state: RootReducer) => state.cart);
 
@@ -116,8 +118,6 @@ function Checkout() {
         else
             setValidExpireYear(false);
 
-        //se quiser ativar o regex do número do cartão a fim de validar cartões reais
-        //é só trocar o valor das duas variáveis CARDNUMBER_REGEX no começo do código desse arquivo
         setValidCardNumber(CARDNUMBER_REGEX.test(cardNumber));
         setValidNameInCard(NAMEINCARD_REGEX.test(nameInCard));
         setValidCvv(CVV_REGEX.test(cvv));
