@@ -4,7 +4,7 @@ import Router from './pages/routes';
 import { GlobalStyle } from './styles';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Cart from 'components/Cart';
+import Sidebar from 'components/Sidebar';
 import StatusMessage from 'components/StatusMessage';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
       <GlobalStyle />
       <StatusMessage />
       <Header />
-      <Cart />
+      <Sidebar />
       <main className='container'>
         <Router />
       </main>
