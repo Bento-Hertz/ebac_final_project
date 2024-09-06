@@ -4,6 +4,7 @@ export const colors = {
     white: '#FFFFFF',
     lightBeige: '#FFF8F2',
     beige: '#FFEBD9',
+    darkerBeige: '#dacdc2',
     pink: '#E66767',
     gray: '#4B4B4B',
     black: '#000000',
@@ -57,6 +58,14 @@ export const GlobalStyle = createGlobalStyle`
 
     button:disabled {
         cursor: default;
+    }
+
+    input {
+        border: none
+    }
+
+    input:focus, input:hover {
+        outline: none;
     }
 
     .container {
