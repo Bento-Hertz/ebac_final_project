@@ -29,6 +29,7 @@ export const Sidebar = styled.aside<Props>`
     background-color: ${colors.pink};
     color: ${colors.beige};
     padding: 32px 8px;
+    overflow-x: hidden;
     overflow-y: scroll;
     transition: 0.5s;
 
