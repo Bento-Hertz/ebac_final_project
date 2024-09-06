@@ -10,11 +10,14 @@ export const Dish = styled.article`
 `;
 
 export const Preview = styled.div`
+    position: relative;
     height: 167px;
 
     img {
+        position: relative;
         object-fit: cover;
         height: 100%;
+        z-index: 1;
     }
 `;
 

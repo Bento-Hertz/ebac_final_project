@@ -1,5 +1,7 @@
 import { IDish } from 'interfaces/IDish';
 import * as S from './styles';
+import ItemLoader from 'components/Loaders/ItemLoader';
+import { colors } from 'styles';
 
 interface Props {
     dish: IDish; 
@@ -13,6 +15,7 @@ function Dish(props: Props) {
     return (
         <S.Dish>
             <S.Preview>
+                <ItemLoader color={colors.beige}/>
                 <img src={foto} alt="" />
             </S.Preview>
             <S.Title>{nome}</S.Title>
