@@ -5,24 +5,38 @@ import * as S from './styles';
 import DishModal from './DishModal';
 import { useParams } from 'react-router-dom';
 import { IDish } from 'interfaces/IDish';
+import PageLoader from 'components/Loaders/PageLoader';
+import { useDispatch } from 'react-redux';
+import { updateStatusMessage } from 'store/reducers/statusMessage';
 
 function Restaurant() {
     const { id } = useParams();
+    const dispatch = useDispatch();
     
     const [restaurant, setRestaurant] = useState<IRestaurant>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
 
         const getRestaurant = async () => {
             try {
+                setIsLoading(true);
                 const restaurant: IRestaurant = await fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`).then((res) => res.json())
                 setRestaurant(restaurant);
             }
             catch(err) {
-                alert(err);
+                dispatch(updateStatusMessage({
+                    type:'error', 
+                    message:'Não foi possível carregar os produtos. Tente novamente mais tarde', 
+                    isActive:true
+                }));
+            }
+            finally {
+                setIsLoading(false)
             }
         }
         getRestaurant();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     const [currentModal, setCurrentModal] = useState<IDish>();
@@ -34,13 +48,13 @@ function Restaurant() {
         setIsModalActive(true);
     }
 
-    if(!restaurant) {
-        return <></>
+    if(isLoading) {
+        return <PageLoader />
     }
     return (
         <>
             {currentModal && isModalActive ? 
-                <DishModal 
+                <DishModal
                     dish={currentModal} 
                     closeModal={() => setIsModalActive(false)}
                 />
@@ -48,12 +62,16 @@ function Restaurant() {
                 <></>
             }
             <S.Restaurant>
-                <S.Hero className='container overlay' src={restaurant.capa}>
-                    <span>{restaurant.tipo}</span>
-                    <h1>{restaurant.titulo}</h1>
-                </S.Hero>
+                {restaurant ?
+                    <S.Hero className='container' src={restaurant.capa}>
+                        <S.Overlay />
+                        <span>{restaurant?.tipo}</span>
+                        <h1>{restaurant?.titulo}</h1>
+                    </S.Hero>
+                :
+                    <></>}
                 <S.Dishes>
-                    {restaurant.cardapio.map((dish) => (
+                    {restaurant?.cardapio.map((dish) => (
                         <Dish 
                             key={dish.id}
                             dish={dish}

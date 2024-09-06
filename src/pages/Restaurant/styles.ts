@@ -9,25 +9,18 @@ const heroStyle = `
     position: absolute;
     width: 100vw;
     height: 280px;
-    top: 0;
+    top: 185.5px;
     left: 50%;
     transform: translate(-50%);
+
+    @media(max-width: ${breakpoints.tablet}) {
+        top: 290.3px;
+    }
 `
 
 export const Restaurant = styled.div`
-    position: relative;
     padding-top: 280px;
     color: ${colors.white};
-
-    .overlay:after {
-        background-color: ${colors.black};
-        opacity: 0.4;
-        max-width: 100vw;
-        margin: 0;
-        ${heroStyle}
-        display: block;
-        content: '';
-    }
 `;
 
 export const Hero = styled.section<ImageProps>`
@@ -37,10 +30,11 @@ export const Hero = styled.section<ImageProps>`
     display: grid;
     align-content: space-between;
     padding: 32px 40px;
+    z-index: 1;
     ${heroStyle}
 
     span, h1 {
-        z-index: 1;
+        z-index: 3;
         font-size: 32px;
     }
     span {
@@ -49,6 +43,19 @@ export const Hero = styled.section<ImageProps>`
     }
     h1 {
         font-weight: 900;
+    }
+`;
+
+export const Overlay = styled.div`
+    ${heroStyle}
+    max-width: none !important;
+    background-color: ${colors.black};
+    opacity: 0.4;
+    top: 0;
+    z-index: 2;
+
+    @media(max-width: ${breakpoints.tablet}) {
+        top: 0;
     }
 `;
 
