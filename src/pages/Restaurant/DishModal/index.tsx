@@ -22,7 +22,7 @@ function DishModal(props: Props) {
     function onClickingAddToCartBtn() {
         setIsBtnDisabled(true);
         dispatch(addToCart(props.dish));
-        dispatch(updateStatusMessage({type: 'success', message: 'Item added to your cart', isActive: true}));
+        dispatch(updateStatusMessage({type: 'success', message: 'Item adicionado ao carrinho', isActive: true}));
 
         //simulating time response
         setTimeout(() => {
