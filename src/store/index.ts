@@ -1,13 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import cartSlice from './reducers/cart';
-import cartToggleSlice from './reducers/cartToggle';
 import statusMessageSlice from './reducers/statusMessage';
+import sidebarToggleSlice from './reducers/sidebarToggle';
+import currentSidebarSectionSlice from './reducers/currentSidebarSection';
+import cartSlice from './reducers/cart';
 
 const store = configureStore({
     reducer: {
         statusMessage: statusMessageSlice,
-        cart: cartSlice,
-        cartToggle: cartToggleSlice
+        sidebarToggle: sidebarToggleSlice,
+        currentSidebarSection: currentSidebarSectionSlice,
+        cart: cartSlice
     }
 });
 
