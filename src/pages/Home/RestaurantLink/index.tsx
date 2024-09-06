@@ -2,6 +2,8 @@ import { IRestaurant } from '../../../interfaces/IRestaurant';
 import * as S from './styles';
 import starIcon from '../../../assets/icons/star.svg';
 import { Link } from 'react-router-dom';
+import ItemLoader from 'components/Loaders/ItemLoader';
+import { colors } from 'styles';
 
 interface Props {
     restaurant: IRestaurant;
@@ -13,10 +15,11 @@ function RestaurantLink(props: Props) {
     return (
         <S.Restaurant>
             <Link to={`/restaurantes/${id}`}>
-                <S.Image>
-                        <img src={capa} alt="" />
-                        <span>{tipo}</span>
-                </S.Image>
+                <S.ImageContainer>
+                    <ItemLoader color={colors.pink}/>
+                    <S.Image src={capa} alt="" />
+                    <S.Category>{tipo}</S.Category>
+                </S.ImageContainer>
             </Link>
             <S.Container>
                 <S.SubContainer>

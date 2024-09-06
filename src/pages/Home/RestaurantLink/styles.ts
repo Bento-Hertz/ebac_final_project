@@ -8,23 +8,26 @@ export const Restaurant = styled.article`
     grid-template-rows: auto 1fr;
 `;
 
-export const Image = styled.div`
+export const ImageContainer = styled.div`
     height: 218px;
     position: relative;
+`;
 
-    img {
-        object-fit: cover;
-        height: 100%;
-    }
+export const Image = styled.img`
+    position: relative;
+    object-fit: cover;
+    height: 100%;
+    z-index: 1;
+`;
 
-    span {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        color: ${colors.lightBeige};
-        background-color: ${colors.pink};
-        padding: 6px 4px;
-    }
+export const Category = styled.span`
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    color: ${colors.lightBeige};
+    background-color: ${colors.pink};
+    padding: 6px 4px;
+    z-index: 1;
 `;
 
 export const Container = styled.div`
