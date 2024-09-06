@@ -13,6 +13,30 @@ interface ICartDish {
     quantity: number;
 }
 
+//identifica e elimina produtos repetidos no array de produtos do 
+//carrinho para serem melhor visualizados na interface do usuário 
+const convertIDishListToICartDishList = (products: IDish[]): ICartDish[] => {
+    let listOfUniqueDishIds: number[] = [];
+    let tempCartItems: ICartDish[] = [];
+
+    products.forEach((product) => {
+        const IdAlreadyIncluded = listOfUniqueDishIds.includes(product.id);
+        if(IdAlreadyIncluded) {
+            tempCartItems.map((item) => {
+                if(item.dish.id === product.id)
+                    return {...item, quantity: item.quantity++};
+                return item;
+            })
+        } 
+        else {
+            listOfUniqueDishIds.push(product.id);
+            tempCartItems.push({ dish: product, quantity: 1 })
+        }
+    });
+
+    return tempCartItems;
+}
+
 function Cart() {
     const dispatch = useDispatch();
 
@@ -20,26 +44,8 @@ function Cart() {
 
     const [cartItems, setCartItems] = useState<ICartDish[]>([]);
 
-    //identifica e elimina produtos repetidos no array de produtos do 
-    //carrinho para serem melhor visualizados na interface do usuário 
     useEffect(() => {
-        let listOfUniqueDishIds: number[] = [];
-        let tempCartItems: ICartDish[] = [];
-
-        products.forEach((product) => {
-            const IdAlreadyIncluded = listOfUniqueDishIds.includes(product.id);
-            if(IdAlreadyIncluded) {
-                tempCartItems.map((item) => {
-                    if(item.dish.id === product.id)
-                        return {...item, quantity: item.quantity++};
-                    return item;
-                })
-            } 
-            else {
-                listOfUniqueDishIds.push(product.id);
-                tempCartItems.push({ dish: product, quantity: 1 })
-            }
-        });
+        const tempCartItems: ICartDish[] = convertIDishListToICartDishList(products);
 
         setCartItems(tempCartItems);
         dispatch(updateQuantityOfProducts(tempCartItems.length));
