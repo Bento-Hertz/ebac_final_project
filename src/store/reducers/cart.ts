@@ -1,24 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IDish } from 'interfaces/IDish';
 
-interface ICartDish extends IDish {
-    quantity: number;
-}
-
 interface ICartList {
-    items: ICartDish[];
+    items: IDish[];
     totalPrice: number;
+    quantity: number;
 }
 
 const initialState: ICartList = {
     items: [],
-    totalPrice: 0
+    totalPrice: 0,
+    quantity: 0
 };
 
-function updateTotalPrice(items: ICartDish[]) {
+function updateTotalPrice(items: IDish[]) {
     let totalPrice = 0;
     items.forEach((item) => {
-        totalPrice += item.preco * item.quantity;
+        totalPrice += item.preco;
     });
     return totalPrice;
 }
@@ -30,26 +28,30 @@ const cartSlice = createSlice({
         addToCart: (state, action: PayloadAction<IDish>) => {
             const newItem = action.payload;
 
-            if(state.items.find((item) => item.id === newItem.id)) {
-                state.items.map((item) => {
-                    if(item.id === newItem.id)
-                        return {...item, quantity: item.quantity++};
-                    return item;
-                })
-            } else {
-                state.items.push({...newItem, quantity: 1});
-            }
- 
+            state.items.push(newItem);
             state.totalPrice = updateTotalPrice(state.items);
         },
         removeFromCart: (state, action: PayloadAction<number>) => {
             const id = action.payload;
-            state.items = state.items.filter((item) => item.id !== id);
 
+            state.items = state.items.filter((item) => item.id !== id);
             state.totalPrice = updateTotalPrice(state.items);
+        },
+        updateQuantityOfProducts: (state, action: PayloadAction<number>) => {
+            const newQuantity = action.payload;
+
+            state.quantity = newQuantity;
+        },
+        cleanCart: (state) => {
+            const newState: ICartList = {
+                items: [],
+                totalPrice: 0,
+                quantity: 0
+            }
+            return newState;
         }
     }
 });
 
 export default cartSlice.reducer;
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, updateQuantityOfProducts, cleanCart } = cartSlice.actions;
