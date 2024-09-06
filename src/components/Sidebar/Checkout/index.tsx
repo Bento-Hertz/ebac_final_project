@@ -59,6 +59,7 @@ function Checkout() {
     const [cep, setCep] = useState<string>('');
     const [validCep, setValidCep] = useState<boolean>(false);
     const [cepFocus, setCepFocus] = useState<boolean>(false);
+    const [cepIsFetching, setCepIsFetching] = useState<boolean>(false);
 
     const [nameInCard, setNameInCard] = useState<string>('');
     const [validNameInCard, setValidNameInCard] = useState<boolean>(false);
@@ -82,22 +83,21 @@ function Checkout() {
 
     useEffect(() => {
         if(cepFocus)
-            return;
+            return
 
         const searchCep = async () => {
             try {
-                const data = await fetch(`https://cep.awesomeapi.com.br/json/${cep}`).then((res) => res.json());
-
-                if(data.address.includes('undefined'))
-                    setValidCep(false);
-                else {
-                    setAddress(data.address + ', ' + data.district);
-                    setCity(data.city);
-                    setValidCep(true);
-                }
-            }
-            catch(err) {
+                const data = await fetch(`http://viacep.com.br/ws/${cep}/json/`).then(res => res.json());
+                
+                if(data.logradouro && data.bairro)
+                    setAddress(data.logradouro + ', ' + data.bairro);
+                if(data.localidade)
+                    setCity(data.localidade);
+                setValidCep(true);
+            } catch(err) {
                 setValidCep(false);
+            } finally {
+                setCepIsFetching(false);
             }
         }
 
@@ -105,7 +105,7 @@ function Checkout() {
             searchCep();
         else
             setValidCep(false);
-    }, [cep, cepFocus, address, city]);
+    }, [cep, cepFocus]);
 
     useEffect(() => {
         if(Number(expireMonth) <= 12 && Number(expireMonth) >= 1)
@@ -134,13 +134,18 @@ function Checkout() {
             setCheckoutTitle(`Pagamento - Valor a pagar R$ ${cart.totalPrice}`);
     }, [checkoutSection, cart]);
 
+    const handleCepInputBlur = () => {
+        setCepIsFetching(true);
+        setCepFocus(false);
+    }
+
     const onClickingToContinue = () => {
         const allInputsFilled = name && number && address && city && cep;
         if(!allInputsFilled) {
             setErrMsg('Todos os campos obrigatórios devem estar preenchidos!');
             return;
         }
-        if(validCep) {
+        if(validCep && !cepIsFetching) {
             setCheckoutSection('payment');
         }
     }
@@ -217,7 +222,6 @@ function Checkout() {
                                 value={address}
                                 onChangingValue={(value) => setAddress(value)}
                                 required
-                                disabled={validCep}
                             />
                             <Input 
                                 label='Cidade'
@@ -225,7 +229,6 @@ function Checkout() {
                                 value={city}
                                 onChangingValue={(value) => setCity(value)}
                                 required
-                                disabled={validCep}
                             />
                             <S.LineWrap>
                                 <Input 
@@ -234,12 +237,12 @@ function Checkout() {
                                     value={cep}
                                     onChangingValue={(value) => setCep(eraseInsertedMaskValues(value))}
                                     required
-                                    isInputInvalid={!validCep && !cepFocus && cep.length > 0}
+                                    isInputInvalid={!validCep && !cepFocus && !cepIsFetching && cep.length > 0}
                                     inputErrMsg='CEP inválido!'
                                     placeholder='_____-___'
                                     mask='99999-999'
                                     onInputFocus={() => setCepFocus(true)}
-                                    onInputBlur={() => setCepFocus(false)}
+                                    onInputBlur={handleCepInputBlur}
                                 />
                                 <Input 
                                     label='Número'
