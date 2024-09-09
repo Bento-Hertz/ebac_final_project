@@ -136,7 +136,7 @@ function Checkout() {
         if(checkoutSection === 'delivery')
             setCheckoutTitle('Entrega');
         else
-            setCheckoutTitle(`Pagamento - Valor a pagar R$ ${cart.totalPrice}`);
+            setCheckoutTitle(`Pagamento - Valor a pagar R$ ${cart.totalPrice.toFixed(2)}`);
     }, [checkoutSection, cart]);
 
     const handleCepInputBlur = () => {
