@@ -87,7 +87,7 @@ function Checkout() {
 
         const searchCep = async () => {
             try {
-                const data = await fetch(`http://viacep.com.br/ws/${cep}/json/`).then(res => res.json());
+                const data = await fetch(`https://viacep.com.br/ws/${cep}/json/`).then(res => res.json());
 
                 if(data.erro) {
                     setValidCep(false);
